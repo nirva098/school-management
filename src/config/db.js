@@ -1,7 +1,4 @@
-const app = require("./app");
 const mongoose = require("mongoose");
-const dotenv = require("dotenv");
-dotenv.config();
 
 mongoose.connect(process.env.DB_CONNECTION, {
   useNewUrlParser: true,
@@ -13,7 +10,4 @@ db.once("open", () => {
   console.log("Connected to MongoDB");
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+module.exports = db;
