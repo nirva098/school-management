@@ -20,4 +20,8 @@ router.post(
   authController.login
 );
 
+router.get("/test", (req, res) => {
+  res.json("Hello");
+});
+
 module.exports = router;
