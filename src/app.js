@@ -23,7 +23,7 @@ const limiter = rateLimit({
 app.use(limiter);
 
 app.get("/test", (req, res) => {
-  res.status(200).json({ message: "Hello from Express!" });
+  res.status(200).json({ message: "Hello there!" });
 });
 
 app.use("/api/auth", authRouter);

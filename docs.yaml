@@ -4,7 +4,7 @@ info:
   description: API for managing schools, classrooms, and students.
   version: 1.0.0
 servers:
-  - url: http://localhost:7001/api
+  - url: https://school-management-zh5e.onrender.com/api/
 paths:
   /auth/register:
     post:
@@ -18,15 +18,15 @@ paths:
             schema:
               type: object
               properties:
-                username:
+                email:
                   type: string
-                  example: johndoe
+                  example: johndoe@gmail.com
                 password:
                   type: string
                   example: P@ssw0rd
                 role:
                   type: string
-                  example: schooladmin
+                  example: school_admin
       responses:
         201:
           description: User registered successfully
@@ -42,9 +42,9 @@ paths:
             schema:
               type: object
               properties:
-                username:
+                email:
                   type: string
-                  example: johndoe
+                  example: johndoe@gmail.com
                 password:
                   type: string
                   example: P@ssw0rd
