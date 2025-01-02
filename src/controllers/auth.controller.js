@@ -39,7 +39,6 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
-
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(401).json({ message: "Invalid credentials" });
@@ -53,9 +52,9 @@ exports.login = async (req, res) => {
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
       expiresIn: "24h",
     });
-
     res.json({ token });
   } catch (error) {
+    console.log("Error ", error);
     res.status(500).json({ message: "Error during login" });
   }
 };
