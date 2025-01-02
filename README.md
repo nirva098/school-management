@@ -86,3 +86,10 @@ npm run test
 The APIs have been deployed on Render and can be accessed via the following URL:
 
 [https://school-management-zh5e.onrender.com](https://school-management-zh5e.onrender.com)
+
+
+## API Documentation
+
+The API documentation, including all available endpoints and their details, is hosted at the following URL:
+
+[https://app.swaggerhub.com/apis-docs/NIRAV20298/school-management_system_api/1.0.0#/](https://app.swaggerhub.com/apis-docs/NIRAV20298/school-management_system_api/1.0.0#/)
