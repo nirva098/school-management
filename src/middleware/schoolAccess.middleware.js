@@ -5,7 +5,7 @@ exports.checkSchoolAccess = async (req, res, next) => {
   try {
     const schoolId = req.params.schoolId || req.params.id || req.body.school;
 
-    if (req.user.role === "superadmin") {
+    if (req.user.role === "super_admin") {
       return next();
     }
 

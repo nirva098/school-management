@@ -10,7 +10,7 @@ router.use(authenticate);
 
 router.post(
   "/",
-  authorize("superadmin"),
+  authorize("super_admin"),
   [
     body("name").trim().notEmpty(),
     body("address.street").optional().trim(),
@@ -24,12 +24,12 @@ router.post(
   schoolController.createSchool
 );
 
-router.get("/", authorize("superadmin"), schoolController.getSchools);
+router.get("/", authorize("super_admin"), schoolController.getSchools);
 
 // router.get("/:id", checkSchoolAccess, schoolController.getById);
 
-router.put("/:id", authorize("superadmin"), schoolController.updateSchool);
+router.put("/:id", authorize("super_admin"), schoolController.updateSchool);
 
-router.delete("/:id", authorize("superadmin"), schoolController.deleteSchool);
+router.delete("/:id", authorize("super_admin"), schoolController.deleteSchool);
 
 module.exports = router;
