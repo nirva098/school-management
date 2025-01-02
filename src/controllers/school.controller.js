@@ -52,3 +52,13 @@ exports.deleteSchool = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+exports.getSchoolById = async (req, res) => {
+  try {
+    const school = await School.findById(req.params.id);
+    if (!school) return res.status(404).json({ message: "School not found" });
+    res.status(200).json(school);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};

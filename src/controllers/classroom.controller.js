@@ -24,6 +24,15 @@ exports.getClassrooms = async (req, res) => {
   }
 };
 
+exports.getAllBySchool = async (req, res) => {
+  try {
+    const classrooms = await Classroom.find({ schoolId: req.params.schoolId });
+    res.status(200).json(classrooms);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 exports.updateClassroom = async (req, res) => {
   try {
     const updatedClassroom = await Classroom.findByIdAndUpdate(

@@ -1,0 +1,343 @@
+openapi: 3.0.1
+info:
+  title: School Management System API
+  description: API for managing schools, classrooms, and students.
+  version: 1.0.0
+servers:
+  - url: http://localhost:7001/api
+paths:
+  /auth/register:
+    post:
+      summary: Register a new user
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: johndoe
+                password:
+                  type: string
+                  example: P@ssw0rd
+                role:
+                  type: string
+                  example: schooladmin
+      responses:
+        201:
+          description: User registered successfully
+  /auth/login:
+    post:
+      summary: Log in a user
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: johndoe
+                password:
+                  type: string
+                  example: P@ssw0rd
+      responses:
+        200:
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+  /schools:
+    post:
+      summary: Create a new school
+      security:
+        - bearerAuth: []
+      tags:
+        - Schools
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Green Valley High School
+                address:
+                  type: string
+                  example: 123 Main St, City, State
+                contact:
+                  type: string
+                  example: +1234567890
+      responses:
+        201:
+          description: School created successfully
+    get:
+      summary: Get all schools
+      security:
+        - bearerAuth: []
+      tags:
+        - Schools
+      responses:
+        200:
+          description: List of schools
+  /schools/{id}:
+    put:
+      summary: Update a school
+      security:
+        - bearerAuth: []
+      tags:
+        - Schools
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: 60d5f4829a1c4c2b3c3b8e42
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Updated School Name
+      responses:
+        200:
+          description: School updated successfully
+    delete:
+      summary: Delete a school
+      security:
+        - bearerAuth: []
+      tags:
+        - Schools
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: 60d5f4829a1c4c2b3c3b8e42
+      responses:
+        200:
+          description: School deleted successfully
+  /classrooms:
+    post:
+      summary: Create a new classroom
+      security:
+        - bearerAuth: []
+      tags:
+        - Classrooms
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: 10th Grade
+                schoolId:
+                  type: string
+                  example: 60d5f4829a1c4c2b3c3b8e42
+                capacity:
+                  type: integer
+                  example: 30
+      responses:
+        201:
+          description: Classroom created successfully
+    get:
+      summary: Get classrooms by school
+      security:
+        - bearerAuth: []
+      tags:
+        - Classrooms
+      parameters:
+        - name: schoolId
+          in: query
+          required: true
+          schema:
+            type: string
+          example: 60d5f4829a1c4c2b3c3b8e42
+      responses:
+        200:
+          description: List of classrooms
+  /classrooms/{id}:
+    put:
+      summary: Update a classroom
+      security:
+        - bearerAuth: []
+      tags:
+        - Classrooms
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: 60d5f4829a1c4c2b3c3b8e42
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Updated Classroom Name
+      responses:
+        200:
+          description: Classroom updated successfully
+    delete:
+      summary: Delete a classroom
+      security:
+        - bearerAuth: []
+      tags:
+        - Classrooms
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: 60d5f4829a1c4c2b3c3b8e42
+      responses:
+        200:
+          description: Classroom deleted successfully
+  /students/enroll:
+    post:
+      summary: Enroll a new student
+      security:
+        - bearerAuth: []
+      tags:
+        - Students
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: John Doe
+                age:
+                  type: integer
+                  example: 15
+                classroomId:
+                  type: string
+                  example: 60d5f4829a1c4c2b3c3b8e42
+      responses:
+        201:
+          description: Student enrolled successfully
+  /students:
+    get:
+      summary: Get students by classroom
+      security:
+        - bearerAuth: []
+      tags:
+        - Students
+      parameters:
+        - name: classroomId
+          in: query
+          required: true
+          schema:
+            type: string
+          example: 60d5f4829a1c4c2b3c3b8e42
+      responses:
+        200:
+          description: List of students
+  /students/{id}:
+    put:
+      summary: Update student details
+      security:
+        - bearerAuth: []
+      tags:
+        - Students
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: 60d5f4829a1c4c2b3c3b8e42
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Updated Student Name
+      responses:
+        200:
+          description: Student updated successfully
+    delete:
+      summary: Delete a student
+      security:
+        - bearerAuth: []
+      tags:
+        - Students
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: 60d5f4829a1c4c2b3c3b8e42
+      responses:
+        200:
+          description: Student deleted successfully
+  /students/transfer/{id}:
+    put:
+      summary: Transfer a student
+      security:
+        - bearerAuth: []
+      tags:
+        - Students
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: 60d5f4829a1c4c2b3c3b8e42
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                classroomId:
+                  type: string
+                  example: 67890
+      responses:
+        200:
+          description: Student transferred successfully
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

@@ -26,7 +26,7 @@ router.post(
 
 router.get("/", authorize("super_admin"), schoolController.getSchools);
 
-// router.get("/:id", checkSchoolAccess, schoolController.getById);
+router.get("/:id", checkSchoolAccess, schoolController.getSchoolById);
 
 router.put("/:id", authorize("super_admin"), schoolController.updateSchool);
 

@@ -21,11 +21,11 @@ router.post(
   classroomController.createClassroom
 );
 
-// router.get(
-//   "/school/:schoolId",
-//   checkSchoolAccess,
-//   classroomController.getAllBySchool
-// );
+router.get(
+  "/school/:schoolId",
+  checkSchoolAccess,
+  classroomController.getAllBySchool
+);
 
 router.get("/:id", checkSchoolAccess, classroomController.getClassrooms);
 

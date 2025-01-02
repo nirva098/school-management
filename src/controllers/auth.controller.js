@@ -1,6 +1,5 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/user.model");
-const { validationResult } = require("express-validator");
 
 exports.register = async (req, res) => {
   try {
@@ -28,7 +27,6 @@ exports.register = async (req, res) => {
       token,
     });
   } catch (error) {
-    console.log("Error ", error);
     res.status(500).json({ message: "Error creating user" });
   }
 };
@@ -51,7 +49,6 @@ exports.login = async (req, res) => {
     });
     res.json({ token });
   } catch (error) {
-    console.log("Error ", error);
     res.status(500).json({ message: "Error during login" });
   }
 };

@@ -1,6 +1,7 @@
 const Student = require("../models/student.model");
 
-exports.createStudent = async (req, res) => {
+// Enroll a new student
+exports.enrollStudent = async (req, res) => {
   try {
     const student = new Student({
       name: req.body.name,
@@ -14,7 +15,8 @@ exports.createStudent = async (req, res) => {
   }
 };
 
-exports.getStudents = async (req, res) => {
+// Get students by classroom
+exports.getStudentsByClassroom = async (req, res) => {
   try {
     const students = await Student.find({ classroomId: req.query.classroomId });
     res.status(200).json(students);
@@ -23,7 +25,8 @@ exports.getStudents = async (req, res) => {
   }
 };
 
-exports.updateStudent = async (req, res) => {
+// Update student details
+exports.updateStudentDetails = async (req, res) => {
   try {
     const updatedStudent = await Student.findByIdAndUpdate(
       req.params.id,
@@ -41,12 +44,32 @@ exports.updateStudent = async (req, res) => {
   }
 };
 
+// Delete a student
 exports.deleteStudent = async (req, res) => {
   try {
     const deletedStudent = await Student.findByIdAndDelete(req.params.id);
     if (!deletedStudent)
       return res.status(404).json({ message: "Student not found" });
     res.status(200).json({ message: "Student deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+// Transfer a student
+exports.transferStudent = async (req, res) => {
+  try {
+    const updatedStudent = await Student.findByIdAndUpdate(
+      req.params.id,
+      { classroomId: req.body.classroomId },
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+    if (!updatedStudent)
+      return res.status(404).json({ message: "Student not found" });
+    res.status(200).json(updatedStudent);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
