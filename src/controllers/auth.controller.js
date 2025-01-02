@@ -4,10 +4,6 @@ const { validationResult } = require("express-validator");
 
 exports.register = async (req, res) => {
   try {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
     const { email, password, role, school } = req.body;
     const existingUser = await User.findOne({ email });
     if (existingUser) {
@@ -32,6 +28,7 @@ exports.register = async (req, res) => {
       token,
     });
   } catch (error) {
+    console.log("Error ", error);
     res.status(500).json({ message: "Error creating user" });
   }
 };
