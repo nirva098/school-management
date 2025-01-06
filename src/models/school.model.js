@@ -28,7 +28,7 @@ const schoolSchema = new mongoose.Schema(
         type: String,
         validate: {
           validator: function (v) {
-            return /^[\\w-.]+@([\\w-]+\\.)+[\\w-]{2,4}$/.test(v);
+            return /^[\w-.]+@([\w-]+\.)+[\w-]{2,}$/i.test(v);
           },
           message: (props) => `${props.value} is not a valid email!`,
         },
